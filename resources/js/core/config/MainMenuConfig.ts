@@ -13,6 +13,12 @@ export interface MenuItem {
 const MainMenuConfig: Array<MenuItem> = [
   {
     pages: [
+        {
+            heading: "Account Settings",
+            route: "/1",
+            svgIcon: getAssetPath("media/icons/svg/sliders-solid.svg"),
+            fontIcon: "bi-app-indicator"
+        },
       {
         heading: "dashboard",
         route: "/dashboard",

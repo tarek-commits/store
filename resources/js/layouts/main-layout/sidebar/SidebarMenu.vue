@@ -153,15 +153,15 @@
         </template>
 
         <!-- <div class="menu-item pt-5">
-      
+
           <div class="menu-content">
             <span class="menu-heading fw-bold text-uppercase fs-7">Help</span>
           </div>
-          
+
         </div> -->
         <!--begin:Menu item-->
         <!-- <div class="menu-item">
-          
+
           <a
             class="menu-link"
             href="https://preview.keenthemes.com/metronic8/vue/docs/#/utilities"
@@ -182,11 +182,11 @@
             </span>
             <span class="menu-title">Components</span>
           </a>
-          
+
         </div> -->
         <!--end:Menu item-->
         <!-- <div class="menu-item">
-          
+
           <a
             class="menu-link"
             href="https://preview.keenthemes.com/metronic8/vue/docs/#/doc-overview"
@@ -206,7 +206,7 @@
             </span>
             <span class="menu-title">Documentation</span>
           </a>
-          
+
         </div> -->
         <!--begin:Menu item-->
         <!--end:Menu item-->
@@ -286,3 +286,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+#kt_app_sidebar .svg-icon{
+    filter: brightness(0)invert(1) !important;
+}
+</style>

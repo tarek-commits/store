@@ -5,12 +5,12 @@
 // Desktop mode
 @include media-breakpoint-up(lg) {
     .app-sidebar-toggle {
-        box-shadow: var(--#{$prefix}app-sidebar-base-toggle-btn-box-shadow) !important; 
-        background-color: var(--#{$prefix}app-sidebar-base-toggle-btn-bg-color) !important; 
+        box-shadow: var(--#{$prefix}app-sidebar-base-toggle-btn-box-shadow) !important;
+        background-color: var(--#{$prefix}app-sidebar-base-toggle-btn-bg-color) !important;
 
         .active .svg-icon {
             transform: rotateZ(0deg) !important;
-        }        
+        }
     }
 
     [dir="rtl"] {
@@ -24,22 +24,22 @@
             }
         }
     }
-        
+
     .app-sidebar-logo {
-        height: var(--#{$prefix}app-header-height); 
+        height: var(--#{$prefix}app-header-height);
         display: flex;
         align-items: center;
-        justify-content: space-between;        
+        justify-content: space-between;
         position: relative;
         flex-shrink: 0;
     }
-        
+
     .app-sidebar-menu {
-        .menu  {
-            & > .menu-item {
-                margin-left: 0.115rem;  
-            }    
-        }    
+        .menu {
+            &>.menu-item {
+                margin-left: 0.115rem;
+            }
+        }
     }
 }
 
