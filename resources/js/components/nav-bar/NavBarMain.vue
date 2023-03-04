@@ -3,8 +3,8 @@
     <div class="d-flex mt-6 mb-6 overflow-auto h-55px">
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold flex-nowrap">
             <!--begin::Nav item-->
-            <li class="nav-item" @click="selectTab(tab.title)" v-for="tab in tabs">
-                <a class="nav-link text-active-primary me-6" :class="tab.title == currentTab ? 'active' : ''" active-class="active">
+            <li class="nav-item" @click="selectTab(tab.value)" v-for="tab in tabs.TABS">
+                <a class="nav-link text-active-primary me-6" :class="tab.value == currentTab ? 'active' : ''" active-class="active">
                     {{ tab.title }}
                 </a>
             </li>
@@ -21,7 +21,7 @@ import { toRef } from 'vue';
 export default defineComponent({
     name: 'page-nabar-main',
     props: {
-        tabs: Array,
+        tabs: Object,
         currentTab: String
     },
     setup(props, {emit}) {

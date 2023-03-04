@@ -3,7 +3,13 @@
     <div :class="widgetClasses" class="card">
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
-            <SearchBar @search="(value) => $emit('search', value)" />
+            <div class="d-flex align-items-center search-card">
+                <SearchBar @search="(value) => $emit('search', value)" />
+                <span> <span>1</span> / 1 {{ currentTab.head }} </span>
+                <div class="footer">
+                    <ControlPageBar />
+                </div>
+            </div>
             <div class="card-toolbar">
                 <!--begin::Menu-->
                 <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
@@ -27,7 +33,7 @@
                     <!--begin::Table head-->
                     <thead>
                         <tr class="fw-bold text-muted">
-                            <th class="w-25px">
+                            <th v-if="tableOption?.check.show" class="w-25px">
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" @change="
                                         checkedRows.length === 6
@@ -36,7 +42,7 @@
                                     " />
                                 </div>
                             </th>
-                            <template v-for="(title, index) in TableTitles">
+                            <template v-for="(title, index) in tableTitles?.LABELS[currentTab.value]">
                                 <th v-show="title.show" :class="`min-w-${title.minWidth}px`">{{ title.title }}</th>
                             </template>
                         </tr>
@@ -47,7 +53,7 @@
                     <tbody>
                         <template v-for="(item, index) in list" :key="index">
                             <tr>
-                                <td>
+                                <td v-if="tableOption?.check.show">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
                                         <input class="form-check-input widget-13-check" type="checkbox" :value="index"
                                             v-model="checkedRows" />
@@ -83,35 +89,18 @@
                                     {{ item.contact_no }}
 
                                 </td>
-
                                 <td class="text-end">
-                                    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <!-- <a @click="$emit(action.emit, item.id)"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                        v-for="action in tableOption?.actions">
                                         <span class="svg-icon svg-icon-3">
                                             <inline-svg :src="
                                                 getAssetPath(
-                                                    'media/icons/duotune/general/gen019.svg'
+                                                    action.svg
                                                 )
                                             " />
                                         </span>
-                                    </a>
-
-                                    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                        <span class="svg-icon svg-icon-3">
-                                            <inline-svg :src="
-                                                getAssetPath('media/icons/duotune/art/art005.svg')
-                                            " />
-                                        </span>
-                                    </a>
-
-                                    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                        <span class="svg-icon svg-icon-3">
-                                            <inline-svg :src="
-                                                getAssetPath(
-                                                    'media/icons/duotune/general/gen027.svg'
-                                                )
-                                            " />
-                                        </span>
-                                    </a>
+                                    </a> -->
                                 </td>
                             </tr>
                         </template>
@@ -141,23 +130,18 @@ export default defineComponent({
     },
     props: {
         widgetClasses: String,
-        TableTitles: Array,
-        TableOption: Object,
+        tableTitles: Object,
+        tableOption: Object,
+        currentTab: Object
     },
     setup(props, { emit }) {
         const checkedRows = ref<Array<number>>([]);
-        const searchText = ref<String>('');
-        const TableTitles = toRef(props, 'TableTitles');
-        const TableOption = toRef(props, 'TableOption');
+        const tableTitles = toRef(props, 'tableTitles');
+        const tableOption = toRef(props, 'tableOption');
+        const currentTab = toRef(props, 'currentTab');
         const list = [
             {
-                name: 'Adwait Enterpr',
-                code: 'AD123',
-                address: 'Adwait Warehouse SG',
-                no_of_sections: '2',
-                no_of_locations: '72',
-                warehouse_admin: 'Adwait Moghe',
-                contact_no: '9702004577'
+
             }
         ];
 
@@ -165,8 +149,23 @@ export default defineComponent({
             list,
             checkedRows,
             getAssetPath,
-            TableTitles
+            tableTitles,
+            tableOption,
+            currentTab
+
         };
     },
 });
 </script>
+
+<style lang="scss">
+.search-card {
+    span {
+        color: #b8b8b8ee;
+
+        span {
+            color: #fff;
+        }
+    }
+}
+</style>
