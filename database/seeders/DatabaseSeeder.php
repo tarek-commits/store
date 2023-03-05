@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
 
@@ -22,7 +24,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+
+          //User::factory(7)->create();
+
         // Import Factories & Create 5 Element from This Model
-      Warehouse::factory(5)->create();
+        Warehouse::factory(1)->create();
+
     }
 }

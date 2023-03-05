@@ -11,16 +11,17 @@ return new class extends Migration
      *
      * @return void
      */
-
-     //Udms Inside Warehouse
+    // Warehouses
     public function up()
     {
-        Schema::create('udms', function (Blueprint $table) {
+        Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
-            // This Field Is Postivite Number Only
-            $table->integer('number_of_udms')->unsigned();
-             // If Deleted Parent(Warehouse) The Child(Udm) Will Be It
-            $table->foreignId('warehouse_id')->constrained('warehouses')->cascadeOnDelete();
+            $table->string('name');
+            $table->string('code');
+            $table->string('address');
+            // User Id Is Foreign Key for Warehouse Table
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->integer('contact_num');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('udms');
+        Schema::dropIfExists('warehouses');
     }
 };

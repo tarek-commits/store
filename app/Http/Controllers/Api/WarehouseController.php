@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Warehouse;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,16 @@ class WarehouseController extends Controller
      * @return \Illuminate\Http\Response
      */
     // Return 5 Warehouses Per Page
-    public function index()
+    public function index(Request $request)
     {
-        return Warehouse::paginate(5);
+        $page = $request->has('page')? $request->get('page')  :1 ;
+        $limit = $request->has('limit')?$request->get('limit'): 5;
+        $warehouse = Warehouse::orderBy('id','ASC')
+                                ->limit($limit)
+                                ->offset(($page -1)*$limit)
+                                ->get();
+        return $warehouse;
+
     }
 
     /**
@@ -30,9 +38,14 @@ class WarehouseController extends Controller
     {
 
          $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required','string','max:255'],
+            'code' => ['required','string','between:4,100'],
+            'address' => ['required','string'],
+            'user_id' =>['required','exists:users,id'],
+            'contact_num' => ['required','integer']
 
         ]);
+
 
         $warehouse = Warehouse::create($request->all());
 
@@ -64,7 +77,11 @@ class WarehouseController extends Controller
     {
 
           $request->validate([
-            'name' => 'sometimes|required|string|max:255',
+            'name' => ['sometimes','required','string','max:255'],
+            'code' => ['sometimes','required','string','between:4,100'],
+            'address' => ['sometimes','required','string'],
+            'user_id' =>['sometimes','required','exists:users,id'],
+            'contact_num' => ['sometimes','required','integer']
 
         ]);
 
@@ -85,5 +102,10 @@ class WarehouseController extends Controller
         return response()->json([
             'message' => 'Warehouse deleted successfully',
         ],200);
+    }
+
+    public function Count(){
+
+        return Warehouse::count();
     }
 }
