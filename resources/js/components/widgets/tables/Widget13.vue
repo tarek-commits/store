@@ -5,7 +5,7 @@
         <div class="card-header border-0 pt-5">
             <div class="d-flex align-items-center search-card">
                 <SearchBar @search="(value) => $emit('search', value)" />
-                <span> <span>1</span> / 1 {{ currentTab.head }} </span>
+                <span> <span>1</span> / 1 {{ getCurrentTab(enumName).head }} </span>
                 <div class="footer">
                     <ControlPageBar />
                 </div>
@@ -18,7 +18,7 @@
                         <inline-svg :src="getAssetPath('media/icons/duotune/general/gen024.svg')" />
                     </span>
                 </button>
-                <Dropdown2></Dropdown2>
+                <CheckItems :enumName="enumName" />
                 <!--end::Menu-->
             </div>
         </div>
@@ -33,7 +33,7 @@
                     <!--begin::Table head-->
                     <thead>
                         <tr class="fw-bold text-muted">
-                            <th v-if="tableOption?.check.show" class="w-25px">
+                            <th v-if="tableData?.tabs[currentTab.value]?.check" class="w-25px">
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" @change="
                                         checkedRows.length === 6
@@ -42,7 +42,7 @@
                                     " />
                                 </div>
                             </th>
-                            <template v-for="(title, index) in tableTitles?.LABELS[currentTab.value]">
+                            <template v-for="(title, index) in getLables(enumName)" :key="index">
                                 <th v-show="title.show" :class="`min-w-${title.minWidth}px`">{{ title.title }}</th>
                             </template>
                         </tr>
@@ -53,7 +53,7 @@
                     <tbody>
                         <template v-for="(item, index) in list" :key="index">
                             <tr>
-                                <td v-if="tableOption?.check.show">
+                                <td v-if="getCurrentTab(enumName).check">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
                                         <input class="form-check-input widget-13-check" type="checkbox" :value="index"
                                             v-model="checkedRows" />
@@ -90,9 +90,9 @@
 
                                 </td>
                                 <td class="text-end">
-                                    <!-- <a @click="$emit(action.emit, item.id)"
+                                    <a @click="$emit(action.emit, item.id)"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        v-for="action in tableOption?.actions">
+                                        v-for="action in getActions(enumName)">
                                         <span class="svg-icon svg-icon-3">
                                             <inline-svg :src="
                                                 getAssetPath(
@@ -100,7 +100,7 @@
                                                 )
                                             " />
                                         </span>
-                                    </a> -->
+                                    </a>
                                 </td>
                             </tr>
                         </template>
@@ -119,40 +119,37 @@
 <script lang="ts">
 import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref, toRef } from "vue";
-import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
+import CheckItems from "@/components/dropdown/CheckItems.vue";
 import SearchBar from "@/components/widgets/failds/SearchBar.vue";
+
+import { storeToRefs } from 'pinia';
+import { useTablesData } from "../../../stores/tablesData";
 
 export default defineComponent({
     name: "kt-widget-12",
     components: {
-        Dropdown2,
+        CheckItems,
         SearchBar
     },
     props: {
         widgetClasses: String,
-        tableTitles: Object,
-        tableOption: Object,
-        currentTab: Object
+        enumName: String
     },
-    setup(props, { emit }) {
+    setup(props) {
+        const tablesData = useTablesData();
+        const { getLables, getCurrentTab, getActions } = storeToRefs(tablesData)
         const checkedRows = ref<Array<number>>([]);
-        const tableTitles = toRef(props, 'tableTitles');
-        const tableOption = toRef(props, 'tableOption');
-        const currentTab = toRef(props, 'currentTab');
-        const list = [
-            {
-
-            }
-        ];
-
+        const enumName = toRef(props, 'enumName');
+        const list = [];
         return {
             list,
             checkedRows,
             getAssetPath,
-            tableTitles,
-            tableOption,
-            currentTab
-
+            getLables,
+            tablesData,
+            getCurrentTab,
+            getActions,
+            enumName
         };
     },
 });

@@ -1,4 +1,24 @@
-import TableActionIconsEnum from './TableActionIconsEnum';
+import tableActions from './tableActions';
+interface AllWarehousesData {
+    labels: Object;
+    title: string;
+    tabs: Object;
+    actions: Object;
+    currentTab: Tab
+  }
+
+  interface Tab {
+    title: string,
+    value: string,
+    head: string,
+    check: boolean,
+  }
+
+  interface Label  {
+    title: string;
+    show: boolean;
+    minWidth: string
+  }
 const labels = {
     WAREHOUSE_DETAILS: [
         {
@@ -43,19 +63,19 @@ const labels = {
         }
     ]
 };
-import { ref } from 'vue';
+
 const actions = {
     WAREHOUSE_DETAILS: [
         {
-            svg: TableActionIconsEnum.VIEW,
+            svg: tableActions.VIEW,
             emit: 'viewWarehouse'
         },
         {
-            svg: TableActionIconsEnum.EDIT,
+            svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
         {
-            svg: TableActionIconsEnum.DELETE,
+            svg: tableActions.DELETE,
             emit: 'deleteWarehouse'
         }
     ],
@@ -73,15 +93,16 @@ const tabs = [
     WarehouseDetailsTabs
 ]
 
-const AllWarehousesEnum = Object.freeze({
+const AllWarehousesData: AllWarehousesData = {
     labels: labels,
-    titles: "Warehouses",
+    title: "Warehouses",
     tabs: {
         tabs: tabs,
         WAREHOUSE_DETAILS: WarehouseDetailsTabs
     },
     actions: actions,
     currentTab: WarehouseDetailsTabs
-});
+}
 
-export default AllWarehousesEnum;
+export type { AllWarehousesData };
+export default AllWarehousesData;

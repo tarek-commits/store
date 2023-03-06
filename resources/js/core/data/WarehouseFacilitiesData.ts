@@ -1,4 +1,24 @@
-import TableActionIconsEnum from './TableActionIconsEnum';
+import tableActions from './tableActions';
+interface IWarehouseFacilitiesData {
+    labels: Object;
+    title: string;
+    tabs: Object;
+    actions: Object;
+    currentTab: Tab
+}
+
+interface Tab {
+    title: string,
+    value: string,
+    head: string,
+    check: boolean,
+}
+
+interface Label {
+    title: string;
+    show: boolean;
+    minWidth: string
+}
 const labels = {
     ALL: [
         {
@@ -195,24 +215,28 @@ const labels = {
 const all = {
     title: 'All',
     value: 'ALL',
-    head: 'All Locations'
+    head: 'All Locations',
+    check: true
 }
 const areas = {
     title: 'Areas',
     value: 'AREAS',
-    head: 'Areas'
+    head: 'Areas',
+    check: true
 }
 
 const racks = {
     title: 'Racks',
     value: 'RACKS',
-    head: 'Racks'
+    head: 'Racks',
+    check: true
 }
 
 const locations = {
     title: 'Locations',
     value: 'LOCATIONS',
-    head: 'Locations'
+    head: 'Locations',
+    check: true
 }
 
 const tabs = [
@@ -225,67 +249,63 @@ const tabs = [
 const actions = {
     ALL: [
         {
-            svg: TableActionIconsEnum.VIEW,
+            svg: tableActions.VIEW,
             emit: 'viewWarehouse'
         },
         {
-            svg: TableActionIconsEnum.EDIT,
+            svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
         {
-            svg: TableActionIconsEnum.DELETE,
+            svg: tableActions.DELETE,
             emit: 'deleteWarehouse'
         }
     ],
     AREAS: [
         {
-            svg: TableActionIconsEnum.VIEW,
+            svg: tableActions.VIEW,
             emit: 'viewWarehouse'
         },
         {
-            svg: TableActionIconsEnum.EDIT,
+            svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
         {
-            svg: TableActionIconsEnum.DELETE,
+            svg: tableActions.DELETE,
             emit: 'deleteWarehouse'
         }
     ],
     RACKS: [
         {
-            svg: TableActionIconsEnum.VIEW,
+            svg: tableActions.VIEW,
             emit: 'viewWarehouse'
         },
         {
-            svg: TableActionIconsEnum.EDIT,
+            svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
         {
-            svg: TableActionIconsEnum.DELETE,
+            svg: tableActions.DELETE,
             emit: 'deleteWarehouse'
         }
     ],
     LOCATIONS: [
         {
-            svg: TableActionIconsEnum.VIEW,
+            svg: tableActions.VIEW,
             emit: 'viewWarehouse'
         },
         {
-            svg: TableActionIconsEnum.EDIT,
+            svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
         {
-            svg: TableActionIconsEnum.DELETE,
+            svg: tableActions.DELETE,
             emit: 'deleteWarehouse'
         }
     ],
 }
 
-
-
-
-
-const WarehouseFacilitiesEnum = Object.freeze({
+const WarehouseFacilitiesData: IWarehouseFacilitiesData = {
     labels: labels,
     title: "Warehouses Facilities",
     tabs: {
@@ -297,6 +317,7 @@ const WarehouseFacilitiesEnum = Object.freeze({
     },
     actions: actions,
     currentTab: all
-});
+}
 
-export default WarehouseFacilitiesEnum;
+export type { IWarehouseFacilitiesData };
+export default WarehouseFacilitiesData;
