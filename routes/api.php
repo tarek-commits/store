@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AreaController;
+use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('warehouses',WarehouseController::class);
 
 Route::get('WarehouseTotal',[WarehouseController::class,'count']);
+
+Route::apiResource('categories',CategoriesController::class);
+
+Route::apiResource('areas',AreaController::class);
+
+Route::get('arae_total',[AreaController::class,'count']);
+
+
