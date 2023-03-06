@@ -27,7 +27,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-
+        $this->call([
+            CategorySeeder::class,
+            WarehouseSeeder::class,
+            AreaSeeder::class,
+            RackSeeder::class
+        ]);
 
 
 

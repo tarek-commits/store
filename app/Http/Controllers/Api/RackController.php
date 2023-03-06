@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class RackController extends Controller
 {
@@ -12,9 +14,18 @@ class RackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $page = $request->has('page')? $request->get('page')  :1 ;
+
+        $limit = $request->has('limit')?$request->get('limit'): 5;
+
+        $rack = Rack::with('category:id,name','area:id,name')->orderBy('id','ASC')
+                                ->limit($limit)
+                                ->offset(($page -1)*$limit)
+                                ->get();
+
+              return Response::json($rack);
     }
 
     /**
@@ -25,7 +36,22 @@ class RackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required','string','max:255'],
+            'code' => ['required','string','between:4,100'],
+            'area_id' => ['required','exists:areas,id'],
+            'category_id' =>['required','exists:categories,id'],
+            'size' => ['in:small,medium,large'],
+            'height' => ['numeric'],
+            'width' => ['numeric'],
+            'lenght' => ['numeric'],
+
+        ]);
+
+
+        $area = Rack::create($request->all());
+
+        return Response::json($area, 201);
     }
 
     /**
@@ -34,9 +60,9 @@ class RackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Rack $rack)
     {
-        //
+        return $rack->load('category:id,name','area:id,name');
     }
 
     /**
@@ -46,9 +72,25 @@ class RackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Rack $rack)
     {
-        //
+        $request->validate([
+            'name' => ['sometimes','required','string','max:255'],
+            'code' => ['sometimes','required','string','between:4,100'],
+            'area_id' => ['sometimes','required','exists:areas,id'],
+            'category_id' =>['sometimes','required','exists:categories,id'],
+            'size' => ['in:small,medium,large'],
+            'height' => ['numeric'],
+            'width' => ['numeric'],
+            'lenght' => ['numeric'],
+
+        ]);
+
+        $rack->update($request->all());
+
+        return Response::json($rack);
+
+
     }
 
     /**
@@ -59,6 +101,14 @@ class RackController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Rack::destroy($id);
+        return response()->json([
+            'message' => 'Rack deleted successfully',
+        ],200);
+    }
+
+    public function Count(){
+
+        return Rack::count();
     }
 }

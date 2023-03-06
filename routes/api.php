@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\RackController;
 use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,7 @@ Route::apiResource('areas',AreaController::class);
 
 Route::get('arae_total',[AreaController::class,'count']);
 
+Route::apiResource('racks',RackController::class);
+
+Route::get('rack_total',[RackController::class,'count']);
 
