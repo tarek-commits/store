@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-          //User::factory(7)->create();
+          User::factory(7)->create();
 
         // Import Factories & Create 5 Element from This Model
        // Warehouse::factory(1)->create();
