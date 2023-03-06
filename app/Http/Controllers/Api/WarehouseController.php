@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Response;
@@ -19,12 +20,15 @@ class WarehouseController extends Controller
     public function index(Request $request)
     {
         $page = $request->has('page')? $request->get('page')  :1 ;
+
         $limit = $request->has('limit')?$request->get('limit'): 5;
-        $warehouse = Warehouse::orderBy('id','ASC')
+
+        $warehouse = Warehouse::with('user')->orderBy('id','ASC')
                                 ->limit($limit)
                                 ->offset(($page -1)*$limit)
                                 ->get();
-        return $warehouse;
+
+        return WarehouseResource::collection($warehouse);
 
     }
 
@@ -63,7 +67,7 @@ class WarehouseController extends Controller
     public function show(Warehouse $warehouse)
     {
 
-        return $warehouse;
+        return new WarehouseResource($warehouse);
     }
 
     /**

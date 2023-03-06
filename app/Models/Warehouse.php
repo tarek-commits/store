@@ -17,6 +17,11 @@ class Warehouse extends Model
         'contact_num'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id')->withDefault();
+    }
+
 
     // One Warehouse Has Many Areas ... where "warehouse_id" Is Foriegn Key & "id" Is Local Key
     public function areas()
