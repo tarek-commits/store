@@ -28,7 +28,7 @@ class WarehouseController extends Controller
                                 ->offset(($page -1)*$limit)
                                 ->get();
 
-       // return WarehouseResource::collection($warehouse);
+
             return response()->json([
                 'warehouse' =>$warehouse,
                 'count' => Warehouse::count()
@@ -71,7 +71,7 @@ class WarehouseController extends Controller
     public function show(Warehouse $warehouse)
     {
 
-        return new WarehouseResource($warehouse);
+       return $warehouse->load('user:id,name');
     }
 
     /**
