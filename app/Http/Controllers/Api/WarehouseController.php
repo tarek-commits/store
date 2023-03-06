@@ -23,12 +23,16 @@ class WarehouseController extends Controller
 
         $limit = $request->has('limit')?$request->get('limit'): 5;
 
-        $warehouse = Warehouse::with('user')->orderBy('id','ASC')
+        $warehouse = Warehouse::with('user:id,name')->orderBy('id','ASC')
                                 ->limit($limit)
                                 ->offset(($page -1)*$limit)
                                 ->get();
 
-        return WarehouseResource::collection($warehouse);
+       // return WarehouseResource::collection($warehouse);
+            return response()->json([
+                'warehouse' =>$warehouse,
+                'count' => Warehouse::count()
+            ]);
 
     }
 
@@ -108,8 +112,4 @@ class WarehouseController extends Controller
         ],200);
     }
 
-    public function Count(){
-
-        return Warehouse::count();
-    }
 }

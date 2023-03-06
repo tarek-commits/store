@@ -22,17 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('warehouses',WarehouseController::class);
 
-Route::get('WarehouseTotal',[WarehouseController::class,'count']);
+Route::apiResource('warehouses',WarehouseController::class);
 
 Route::apiResource('categories',CategoriesController::class);
 
 Route::apiResource('areas',AreaController::class);
 
-Route::get('arae_total',[AreaController::class,'count']);
-
 Route::apiResource('racks',RackController::class);
 
-Route::get('rack_total',[RackController::class,'count']);
+
 

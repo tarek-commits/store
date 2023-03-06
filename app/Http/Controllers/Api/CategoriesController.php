@@ -25,7 +25,10 @@ class CategoriesController extends Controller
                         ->offset(($page -1)*$limit)
                         ->get();
 
-                        return Response::json($categories);
+                        return Response::json([
+                            'categories' => $categories,
+                            'count' => Category::count()
+                        ]);
                 }
 
 

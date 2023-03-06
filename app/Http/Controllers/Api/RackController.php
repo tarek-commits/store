@@ -25,7 +25,10 @@ class RackController extends Controller
                                 ->offset(($page -1)*$limit)
                                 ->get();
 
-              return Response::json($rack);
+              return response()->json([
+                'rack' =>$rack,
+                'count' => Rack::count()
+              ]);
     }
 
     /**
@@ -107,8 +110,5 @@ class RackController extends Controller
         ],200);
     }
 
-    public function Count(){
 
-        return Rack::count();
-    }
 }

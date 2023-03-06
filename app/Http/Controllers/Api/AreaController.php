@@ -25,7 +25,10 @@ class AreaController extends Controller
                                 ->offset(($page -1)*$limit)
                                 ->get();
 
-                return Response::json($area);
+                return Response::json([
+                    'areas' => $area,
+                    'count' =>Area::count()
+                ]);
     }
 
     /**
@@ -103,8 +106,4 @@ class AreaController extends Controller
         ],200);
     }
 
-    public function Count(){
-
-        return Area::count();
-    }
 }
