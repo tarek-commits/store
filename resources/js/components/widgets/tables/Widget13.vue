@@ -5,7 +5,7 @@
         <div class="card-header border-0 pt-5">
             <div class="d-flex align-items-center search-card">
                 <SearchBar @search="(value) => $emit('search', value)" />
-                <span> <span>1</span> / 1 {{ getCurrentTab(enumName).head }} </span>
+                <span> <span>1</span> / {{ data?.count }} {{ getCurrentTab(enumName).head }} </span>
                 <div class="footer">
                     <ControlPageBar />
                 </div>
@@ -33,7 +33,7 @@
                     <!--begin::Table head-->
                     <thead>
                         <tr class="fw-bold text-muted">
-                            <th v-if="tableData?.tabs[currentTab.value]?.check" class="w-25px">
+                            <th v-if="getCurrentTab(enumName).check" class="w-25px">
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" @change="
                                         checkedRows.length === 6
@@ -45,13 +45,14 @@
                             <template v-for="(title, index) in getLables(enumName)" :key="index">
                                 <th v-show="title.show" :class="`min-w-${title.minWidth}px`">{{ title.title }}</th>
                             </template>
+                            <th class="min-w-100">Actions</th>
                         </tr>
                     </thead>
                     <!--end::Table head-->
 
                     <!--begin::Table body-->
                     <tbody>
-                        <template v-for="(item, index) in list" :key="index">
+                        <template v-for="(item, index) in data?.warehouse" :key="index">
                             <tr>
                                 <td v-if="getCurrentTab(enumName).check">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -60,19 +61,13 @@
                                     </div>
                                 </td>
 
-                                <td>
-                                    {{ item.name }}
+                                <td v-show="title.show" v-for="(title, index) in getLables(enumName)" :key="index">
+                                    {{ item[title.name] }}
                                 </td>
 
-                                <td>
-                                    {{ item.code }}
-                                </td>
 
-                                <td>
-                                    {{ item.address }}
-                                </td>
 
-                                <td>
+                                <!-- <td>
                                     {{ item.no_of_sections }}
                                 </td>
 
@@ -83,22 +78,13 @@
                                 <td>
                                     {{ item.warehouse_admin }}
 
-                                </td>
-
-                                <td>
-                                    {{ item.contact_no }}
-
-                                </td>
+                                </td> -->
                                 <td class="text-end">
                                     <a @click="$emit(action.emit, item.id)"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                         v-for="action in getActions(enumName)">
                                         <span class="svg-icon svg-icon-3">
-                                            <inline-svg :src="
-                                                getAssetPath(
-                                                    action.svg
-                                                )
-                                            " />
+                                            <inline-svg :src="getAssetPath(action.svg)" />
                                         </span>
                                     </a>
                                 </td>
@@ -133,13 +119,15 @@ export default defineComponent({
     },
     props: {
         widgetClasses: String,
-        enumName: String
+        enumName: String,
+        data: Object
     },
     setup(props) {
         const tablesData = useTablesData();
         const { getLables, getCurrentTab, getActions } = storeToRefs(tablesData)
         const checkedRows = ref<Array<number>>([]);
         const enumName = toRef(props, 'enumName');
+        const data = toRef(props, 'data');
         const list = [];
         return {
             list,
@@ -149,7 +137,8 @@ export default defineComponent({
             tablesData,
             getCurrentTab,
             getActions,
-            enumName
+            enumName,
+            data
         };
     },
 });

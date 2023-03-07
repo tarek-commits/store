@@ -1,8 +1,8 @@
 <template>
   <div
     class="modal fade"
-    id="kt_modal_add_customer"
-    ref="addCustomerModalRef"
+    id="kt_modal_add"
+    ref="addModalRef"
     tabindex="-1"
     aria-hidden="true"
   >
@@ -11,14 +11,14 @@
       <!--begin::Modal content-->
       <div class="modal-content">
         <!--begin::Modal header-->
-        <div class="modal-header" id="kt_modal_add_customer_header">
+        <div class="modal-header" id="kt_modal_add_header">
           <!--begin::Modal title-->
           <h2 class="fw-bold">Add a Customer</h2>
           <!--end::Modal title-->
 
           <!--begin::Close-->
           <div
-            id="kt_modal_add_customer_close"
+            id="kt_modal_add_close"
             data-bs-dismiss="modal"
             class="btn btn-icon btn-sm btn-active-icon-primary"
           >
@@ -43,12 +43,12 @@
             <!--begin::Scroll-->
             <div
               class="scroll-y me-n7 pe-7"
-              id="kt_modal_add_customer_scroll"
+              id="kt_modal_add_scroll"
               data-kt-scroll="true"
               data-kt-scroll-activate="{default: false, lg: true}"
               data-kt-scroll-max-height="auto"
-              data-kt-scroll-dependencies="#kt_modal_add_customer_header"
-              data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
+              data-kt-scroll-dependencies="#kt_modal_add_header"
+              data-kt-scroll-wrappers="#kt_modal_add_scroll"
               data-kt-scroll-offset="300px"
             >
               <!--begin::Input group-->
@@ -109,10 +109,10 @@
               <div
                 class="fw-bold fs-3 rotate collapsible mb-7"
                 data-bs-toggle="collapse"
-                href="#kt_modal_add_customer_billing_info"
+                href="#kt_modal_add_billing_info"
                 role="button"
                 aria-expanded="false"
-                aria-controls="kt_customer_view_details"
+                aria-controls="kt_view_details"
               >
                 Shipping Information
                 <span class="ms-2 rotate-180">
@@ -129,7 +129,7 @@
 
               <!--begin::Billing form-->
               <div
-                id="kt_modal_add_customer_billing_info"
+                id="kt_modal_add_billing_info"
                 class="collapse show"
               >
                 <!--begin::Input group-->
@@ -545,7 +545,7 @@
                         name="billing"
                         type="checkbox"
                         value="1"
-                        id="kt_modal_add_customer_billing"
+                        id="kt_modal_add_billing"
                         checked
                       />
                       <!--end::Input-->
@@ -553,7 +553,7 @@
                       <!--begin::Label-->
                       <span
                         class="form-check-label fw-semobold text-muted"
-                        for="kt_modal_add_customer_billing"
+                        for="kt_modal_add_billing"
                       >
                         Yes
                       </span>
@@ -576,7 +576,7 @@
             <!--begin::Button-->
             <button
               type="reset"
-              id="kt_modal_add_customer_cancel"
+              id="kt_modal_add_cancel"
               class="btn btn-light me-3"
             >
               Discard
@@ -623,11 +623,11 @@ import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2";
 
 export default defineComponent({
-  name: "add-customer-modal",
+  name: "add-modal",
   components: {},
   setup() {
     const formRef = ref<null | HTMLFormElement>(null);
-    const addCustomerModalRef = ref<null | HTMLElement>(null);
+    const addModalRef = ref<null | HTMLElement>(null);
     const loading = ref<boolean>(false);
     const formData = ref({
       name: "Sean Bean",
@@ -708,7 +708,7 @@ export default defineComponent({
                 confirmButton: "btn btn-primary",
               },
             }).then(() => {
-              hideModal(addCustomerModalRef.value);
+              hideModal(addModalRef.value);
             });
           }, 2000);
         } else {
@@ -733,7 +733,7 @@ export default defineComponent({
       submit,
       formRef,
       loading,
-      addCustomerModalRef,
+      addModalRef,
       getAssetPath,
     };
   },

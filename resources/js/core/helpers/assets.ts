@@ -14,11 +14,11 @@ export const getIllustrationsPath = (illustrationName: string): string => {
         )}-dark`
       : illustrationName.substring(0, illustrationName.lastIndexOf("."));
   return (
-    import.meta.env.BASE_URL +
+    import.meta.env.VITE_APP_URL +
     `media/illustrations/${illustrationsSet.value}/${illustration}${extension}`
   );
 };
 
 export const getAssetPath = (path: string): string => {
-  return import.meta.env.BASE_URL + path;
+  return import.meta.env.VITE_APP_URL + path;
 };

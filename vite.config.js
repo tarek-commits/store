@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import { fileURLToPath, URL } from "node:url";
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
@@ -10,4 +11,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    alias: {
+        "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
 });
