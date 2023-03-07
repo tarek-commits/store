@@ -11,16 +11,17 @@ export const useTablesData = defineStore("tablesData", {
     }),
     getters: {
         getLables: (state) => {
-            return (enumName) => state[enumName].labels[state[enumName].currentTab.value];
+
+            return (enumName) => state[enumName]?.labels[state[enumName].currentTab.value];
         },
         getTabs: (state) => {
-            return (enumName) => state[enumName].tabs.tabs;
+            return (enumName) => state[enumName]?.tabs.tabs;
         },
         getCurrentTab: (state) => {
-            return (enumName) => state[enumName].currentTab;
+            return (enumName) => state[enumName]?.currentTab;
         },
         getActions: (state) => {
-            return (enumName) => state[enumName].actions[state[enumName].currentTab.value];
+            return (enumName) => state[enumName]?.actions[state[enumName].currentTab.value];
         },
     },
     actions: {

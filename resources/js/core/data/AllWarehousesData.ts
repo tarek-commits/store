@@ -24,42 +24,41 @@ const labels = {
         {
             title: 'Name',
             show: true,
-            minWidth: '100'
+            minWidth: '100',
+            name: 'name'
         },
         {
             title: 'Code',
             show: true,
-            minWidth: '100'
+            minWidth: '100',
+            name: 'code'
         },
         {
             title: 'Address',
             show: true,
-            minWidth: '100'
+            minWidth: '100',
+            name: 'address'
         },
-        {
-            title: 'No. of Sections',
-            show: true,
-            minWidth: '100'
-        },
-        {
-            title: 'No. of Locations',
-            show: true,
-            minWidth: '100'
-        },
-        {
-            title: 'Warehouse Admin',
-            show: true,
-            minWidth: '100'
-        },
+        // {
+        //     title: 'No. of Sections',
+        //     show: true,
+        //     minWidth: '100'
+        // },
+        // {
+        //     title: 'No. of Locations',
+        //     show: true,
+        //     minWidth: '100'
+        // },
+        // {
+        //     title: 'Warehouse Admin',
+        //     show: true,
+        //     minWidth: '100'
+        // },
         {
             title: 'Contact No.',
             show: true,
-            minWidth: '100'
-        },
-        {
-            title: 'Actions',
-            show: true,
-            minWidth: '100'
+            minWidth: '100',
+            name: 'contact_num'
         }
     ]
 };
