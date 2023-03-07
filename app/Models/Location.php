@@ -36,4 +36,8 @@ class Location extends Model
         return $this->belongsTo(Rack::class, 'rack_id', 'id');
     }
 
+    public function storage()
+    {
+        return $this->belongsTo(StorageType::class, 'storage_id', 'id');
+    }
 }
