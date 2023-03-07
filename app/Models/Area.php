@@ -24,7 +24,7 @@ class Area extends Model
     // One Area Follow One Category... where "category_id" is Foriegn Key & "id" Is Local Key
    public function category()
    {
-       return $this->belongsTo(Category::class, 'category_id', 'id');
+       return $this->belongsTo(Category::class, 'category_id', 'id')->withDefault();
    }
 
 
@@ -37,6 +37,6 @@ class Area extends Model
    // One Area Follow One Warehouse
    public function warhouse()
    {
-       return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
+       return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id')->withDefault();
    }
 }

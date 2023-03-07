@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // One user Has Many warehouses ... where "user_id" Is Foriegn Key & "id" Is Local Key
+    public function warehouses()
+    {
+        return $this->hasMany(Warehouse::class, 'user_id', 'id');
+    }
 }

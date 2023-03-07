@@ -3,37 +3,32 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\WarehouseResource;
-use App\Models\Warehouse;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Support\Facades\Response;
+use App\Models\Rack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
-class WarehouseController extends Controller
+class RackController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // Return 5 Warehouses Per Page
     public function index(Request $request)
     {
         $page = $request->has('page')? $request->get('page')  :1 ;
 
         $limit = $request->has('limit')?$request->get('limit'): 5;
 
-        $warehouse = Warehouse::with('user:id,name')->orderBy('id','ASC')
+        $rack = Rack::with('category:id,name','area:id,name')->orderBy('id','ASC')
                                 ->limit($limit)
                                 ->offset(($page -1)*$limit)
                                 ->get();
 
-
-            return response()->json([
-                'warehouse' =>$warehouse,
-                'count' => Warehouse::count()
-            ]);
-
+              return response()->json([
+                'rack' =>$rack,
+                'count' => Rack::count()
+              ]);
     }
 
     /**
@@ -44,21 +39,22 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-
-         $request->validate([
+        $request->validate([
             'name' => ['required','string','max:255'],
             'code' => ['required','string','between:4,100'],
-            'address' => ['required','string'],
-            'user_id' =>['required','exists:users,id'],
-            'contact_num' => ['required','integer']
+            'area_id' => ['required','exists:areas,id'],
+            'category_id' =>['required','exists:categories,id'],
+            'size' => ['in:small,medium,large'],
+            'height' => ['numeric'],
+            'width' => ['numeric'],
+            'lenght' => ['numeric'],
 
         ]);
 
 
-        $warehouse = Warehouse::create($request->all());
+        $area = Rack::create($request->all());
 
-        return Response::json($warehouse, 201);
-
+        return Response::json($area, 201);
     }
 
     /**
@@ -67,11 +63,9 @@ class WarehouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // Return Single Warehouse
-    public function show(Warehouse $warehouse)
+    public function show(Rack $rack)
     {
-
-       return $warehouse->load('user:id,name');
+        return $rack->load('category:id,name','area:id,name');
     }
 
     /**
@@ -81,21 +75,25 @@ class WarehouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Warehouse $warehouse)
+    public function update(Request $request, Rack $rack)
     {
-
-          $request->validate([
+        $request->validate([
             'name' => ['sometimes','required','string','max:255'],
             'code' => ['sometimes','required','string','between:4,100'],
-            'address' => ['sometimes','required','string'],
-            'user_id' =>['sometimes','required','exists:users,id'],
-            'contact_num' => ['sometimes','required','integer']
+            'area_id' => ['sometimes','required','exists:areas,id'],
+            'category_id' =>['sometimes','required','exists:categories,id'],
+            'size' => ['in:small,medium,large'],
+            'height' => ['numeric'],
+            'width' => ['numeric'],
+            'lenght' => ['numeric'],
 
         ]);
 
-        $warehouse->update($request->all());
+        $rack->update($request->all());
 
-        return Response::json($warehouse);
+        return Response::json($rack);
+
+
     }
 
     /**
@@ -106,10 +104,11 @@ class WarehouseController extends Controller
      */
     public function destroy($id)
     {
-        Warehouse::destroy($id);
+        Rack::destroy($id);
         return response()->json([
-            'message' => 'Warehouse deleted successfully',
+            'message' => 'Rack deleted successfully',
         ],200);
     }
+
 
 }

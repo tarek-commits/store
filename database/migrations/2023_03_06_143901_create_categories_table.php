@@ -11,8 +11,6 @@ return new class extends Migration
      *
      * @return void
      */
-
-    // Category Management
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
@@ -24,7 +22,8 @@ return new class extends Migration
             $table->string('plu_formule');
             $table->float('price_tolerance')->nullable();
             $table->float('weight_tolerance')->nullable();
-            $table->enum('Qc_parameter',['visual_inspection','packing_inspection','tempeature_inspection']);
+            $table->enum('Qc_parameter',['visual_inspection','packing_inspection','tempeature_inspection'])
+                  ->default('visual_inspection');
             $table->timestamps();
         });
     }
