@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Storage_type;
+
 use App\Models\StorageType;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class StorageTypeController extends Controller
 
         $limit = $request->has('limit')?$request->get('limit'): 5;
 
-        $storage = StorageType::with('category:id,name','rack:id,name')->orderBy('id','ASC')
+        $storage = StorageType::orderBy('id','ASC')
                                 ->limit($limit)
                                 ->offset(($page -1)*$limit)
                                 ->get();
@@ -48,8 +48,10 @@ class StorageTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(StorageType $storage)
+    public function show($id)
     {
+        $storage= StorageType::findOrFail($id);
+
         return $storage;
     }
 
