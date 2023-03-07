@@ -32,7 +32,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             WarehouseSeeder::class,
             AreaSeeder::class,
-            RackSeeder::class
+            RackSeeder::class,
+            StorageTypeSeeder::class,
+            LocationSeeder::class
         ]);
 
 
