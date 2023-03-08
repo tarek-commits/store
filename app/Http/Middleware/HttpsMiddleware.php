@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class DomainMiddleware
+class HttpsMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,12 +18,13 @@ class DomainMiddleware
     {
 
 
-        if(!$request->secure() && env('TEST_URL') === true){
+        if(!$request->secure() && env('App_Run_Locally') === true){
 
             return redirect()->secure($request->getRequestUri());
         }
         return $next($request);
     }
+
 
 
 }
