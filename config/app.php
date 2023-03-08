@@ -16,7 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'app_run_locally' => env('App_Run_Locally', false),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

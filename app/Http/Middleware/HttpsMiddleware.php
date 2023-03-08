@@ -18,7 +18,7 @@ class HttpsMiddleware
     {
 
 
-        if(!$request->secure() && env('App_Run_Locally') === true){
+        if(!$request->secure() && !isLocalHost()){
 
             return redirect()->secure($request->getRequestUri());
         }
