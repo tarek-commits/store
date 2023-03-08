@@ -1,4 +1,4 @@
-import tableActions from './tableActions';
+import tableActions from '../enums/TableActionIconsEnum';
 interface IWarehouseFacilitiesData {
     labels: Object;
     title: string;

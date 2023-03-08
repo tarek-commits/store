@@ -1,4 +1,4 @@
-import tableActions from './tableActions';
+import tableActions from '../enums/TableActionIconsEnum';
 interface AllWarehousesData {
     labels: Object;
     title: string;
@@ -12,6 +12,13 @@ interface AllWarehousesData {
     value: string,
     head: string,
     check: boolean,
+    add: Actions
+  }
+
+  interface Actions {
+    show: boolean,
+    emit: string,
+    label: string
   }
 
   interface Label  {
@@ -66,10 +73,6 @@ const labels = {
 const actions = {
     WAREHOUSE_DETAILS: [
         {
-            svg: tableActions.VIEW,
-            emit: 'viewWarehouse'
-        },
-        {
             svg: tableActions.EDIT,
             emit: 'editWarehouse'
         },
@@ -85,7 +88,12 @@ const WarehouseDetailsTabs =
     title: 'Warehouse Details',
     value: 'WAREHOUSE_DETAILS',
     head: 'Warehouses',
-    check: true
+    check: true,
+    add: {
+        show: true,
+        emit: 'addWarehouse',
+        label: 'Add'
+    }
 }
 
 const tabs = [
