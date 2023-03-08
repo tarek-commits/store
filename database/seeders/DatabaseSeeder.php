@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             UdmSeeder::class,
             OrderBinsSeeder::class,
-            MaterialTypeSeeder::class
+            MaterialTypeSeeder::class,
+            IndustrySeeder::class
         ]);
 
 
