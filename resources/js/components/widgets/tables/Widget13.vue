@@ -5,7 +5,7 @@
         <div class="card-header border-0 pt-5">
             <div class="d-flex align-items-center search-card">
                 <SearchBar @search="(value) => $emit('search', value)" />
-                <span> <span>1</span> / {{ data?.count }} {{ getCurrentTab(enumName).head }} </span>
+                <span> <span>{{ data?.warehouse.length }}</span> / {{ data?.count }} {{ getCurrentTab(enumName).head }} </span>
                 <div class="footer">
                     <ControlPageBar />
                 </div>

@@ -48,6 +48,7 @@ export const useWarehouses = defineStore("warehouses", {
             return data;
         },
         deleteItem(id: number) {
+            this._warehouses.count = this._warehouses.count-1;
            return this._warehouses.warehouse = this._warehouses.warehouse.filter((item) => {
             return item.id !== id;
            })
