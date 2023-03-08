@@ -3,9 +3,12 @@
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\MaterialTypesController;
 use App\Http\Controllers\Api\RackController;
 use App\Http\Controllers\Api\StorageTypeController;
 use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\UdmController;
+use App\Http\Controllers\Api\OrderBinsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +39,12 @@ Route::apiResource('racks',RackController::class);
 Route::apiResource('storage_types',StorageTypeController::class);
 
 Route::apiResource('locations',LocationController::class);
+
+Route::apiResource('udms',UdmController::class);
+
+Route::apiResource('order_bins',OrderBinsController::class);
+
+Route::apiResource('material_types',MaterialTypesController::class);
 
 
 

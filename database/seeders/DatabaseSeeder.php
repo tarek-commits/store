@@ -34,7 +34,10 @@ class DatabaseSeeder extends Seeder
             AreaSeeder::class,
             RackSeeder::class,
             StorageTypeSeeder::class,
-            LocationSeeder::class
+            LocationSeeder::class,
+            UdmSeeder::class,
+            OrderBinsSeeder::class,
+            MaterialTypeSeeder::class
         ]);
 
 
