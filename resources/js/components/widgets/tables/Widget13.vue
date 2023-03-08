@@ -11,8 +11,19 @@
                 </div>
             </div>
             <div class="card-toolbar">
+                <!-- begin::add button -->
+                <button
+                    type="button"
+                    class="btn btn-sm fw-bold btn-primary m-2"
+                    data-bs-toggle="modal"
+                    v-if="getCurrentTab(enumName).add?.show"
+                    @click="$emit(getCurrentTab(enumName).add?.emit)"
+                >
+                {{ getCurrentTab(enumName).add?.label }}
+                </button>
+                <!-- end::add button -->
                 <!--begin::Menu-->
-                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                <button type="button" class="btn m-2 btn-sm btn-icon btn-color-primary btn-active-light-primary"
                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                     <span class="svg-icon svg-icon-2">
                         <inline-svg :src="getAssetPath('media/icons/duotune/general/gen024.svg')" />
@@ -62,7 +73,7 @@
                                 </td>
 
                                 <td v-show="title.show" v-for="(title, index) in getLables(enumName)" :key="index">
-                                    {{ item[title.name] }}
+                                    {{ item[title?.name] }}
                                 </td>
 
 
@@ -80,11 +91,11 @@
 
                                 </td> -->
                                 <td class="text-end">
-                                    <a @click="$emit(action.emit, item.id)"
+                                    <a @click="$emit(action.emit, {id:item.id, index: index})"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                         v-for="action in getActions(enumName)">
                                         <span class="svg-icon svg-icon-3">
-                                            <inline-svg :src="getAssetPath(action.svg)" />
+                                            <inline-svg :src="action.svg" />
                                         </span>
                                     </a>
                                 </td>
@@ -104,7 +115,7 @@
 
 <script lang="ts">
 import { getAssetPath } from "@/core/helpers/assets";
-import { defineComponent, ref, toRef } from "vue";
+import { defineComponent, ref, toRef,  } from "vue";
 import CheckItems from "@/components/dropdown/CheckItems.vue";
 import SearchBar from "@/components/widgets/failds/SearchBar.vue";
 

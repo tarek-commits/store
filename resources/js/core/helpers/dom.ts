@@ -9,6 +9,14 @@ const hideModal = (modalEl: HTMLElement | null): void => {
   myModal?.hide();
 };
 
+const showModal = (modalEl: HTMLElement | null): void => {
+    if (!modalEl) {
+        return;
+      }
+    const myModal = new Modal(modalEl);
+    myModal?.show();
+  };
+
 const removeModalBackdrop = (): void => {
   if (document.querySelectorAll(".modal-backdrop.fade.show").length) {
     document.querySelectorAll(".modal-backdrop.fade.show").forEach((item) => {
@@ -17,4 +25,4 @@ const removeModalBackdrop = (): void => {
   }
 };
 
-export { removeModalBackdrop, hideModal };
+export { removeModalBackdrop, hideModal, showModal };
