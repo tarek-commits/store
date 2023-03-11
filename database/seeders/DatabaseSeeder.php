@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Area;
 use App\Models\Category;
+use App\Models\LogisticCompany;
 use App\Models\User;
 use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
@@ -38,7 +39,12 @@ class DatabaseSeeder extends Seeder
             UdmSeeder::class,
             OrderBinsSeeder::class,
             MaterialTypeSeeder::class,
-            IndustrySeeder::class
+            IndustrySeeder::class,
+            CompanySeeder::class,
+            PackingMaterialSeeder::class,
+            LogisticCompanySeeder::class,
+            CarrierSeeder::class,
+            PermissionTableSeeder::class
         ]);
 
 

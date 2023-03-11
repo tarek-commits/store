@@ -1,16 +1,21 @@
 <?php
 
-use App\Http\Controllers\Api\AreaController;
-use App\Http\Controllers\Api\CategoriesController;
-use App\Http\Controllers\Api\LocationController;
-use App\Http\Controllers\Api\MaterialTypesController;
-use App\Http\Controllers\Api\RackController;
-use App\Http\Controllers\Api\StorageTypeController;
-use App\Http\Controllers\Api\WarehouseController;
-use App\Http\Controllers\Api\UdmController;
-use App\Http\Controllers\Api\OrderBinsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UdmController;
+use App\Http\Controllers\Api\AreaController;
+use App\Http\Controllers\Api\RackController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CarrierController;
+use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\OrderBinsController;
+use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\StorageTypeController;
+use App\Http\Controllers\Api\MaterialTypesController;
+use App\Http\Controllers\Api\PackingMaterialController;
+use App\Http\Controllers\Api\Customers\LogisticCompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +50,19 @@ Route::apiResource('udms',UdmController::class);
 Route::apiResource('order_bins',OrderBinsController::class);
 
 Route::apiResource('material_types',MaterialTypesController::class);
+
+Route::apiResource('packing_material',PackingMaterialController::class);
+
+
+Route::apiResource('logistic_company',LogisticCompanyController::class);
+
+Route::apiResource('carrier',CarrierController::class);
+
+
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('users', UserController::class);
+
+
 
 
 

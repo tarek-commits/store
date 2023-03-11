@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order_bins', function (Blueprint $table) {
-            $table->enum('status',['Unallocated','Allocated'])
-                    ->default('Unallocated')->after('warehouse_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('roles')->after('password');
         });
     }
 
@@ -26,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order_bins', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

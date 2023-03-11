@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order_bins', function (Blueprint $table) {
-            $table->enum('status',['Unallocated','Allocated'])
-                    ->default('Unallocated')->after('warehouse_id');
+        Schema::create('logistic_companies', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order_bins', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('logistic_companies');
     }
 };
