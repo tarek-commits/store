@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             PackingMaterialSeeder::class,
             LogisticCompanySeeder::class,
             CarrierSeeder::class,
-            PermissionTableSeeder::class
+
         ]);
 
 

@@ -42,11 +42,11 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+
         ]);
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+
 
         return Response::json($role, 201);
     }
@@ -59,12 +59,10 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
+        $role = Role::findOrFail($id);
 
-            return Response::json($role,$rolePermissions);
+
+            return $role;
 
     }
 
@@ -79,15 +77,12 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'sometimes|required|unique:roles,name',
-            'permission' => 'sometimes|required',
+
         ]);
 
-        // $role = Role::find($id);
-        // $role->name = $request->input('name');
-        // $role->save();
+
         $role->update($request->all());
 
-        $role->syncPermissions($request->input('permission'));
 
         return Response::json($role);
     }
